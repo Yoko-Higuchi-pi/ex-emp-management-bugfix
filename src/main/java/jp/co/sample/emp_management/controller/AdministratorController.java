@@ -71,6 +71,7 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/insert")
 	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
+		// 不正な入力がある場合は登録画面に遷移
 		if (result.hasErrors()) {
 			return toInsert(model);
 		}
@@ -78,7 +79,17 @@ public class AdministratorController {
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
+		
+		// 登録されている情報を確認
+		Administrator adminiMail = administratorService.findByMailAddress(administrator.getMailAddress());
 
+		// もし登録されている場合はエラーとして登録のやり直し
+		// TODO : result.rejectErrorを用いてvalidation でエラー表示できるようにする
+		if (adminiMail != null) {
+			model.addAttribute("hasMail", "そのメールアドレスは既に登録されています");
+			return toInsert(model);
+		}
+		
 		administratorService.insert(administrator);
 //		return "administrator/login";
 		return "redirect:/";

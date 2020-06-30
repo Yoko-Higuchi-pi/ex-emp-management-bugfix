@@ -26,7 +26,18 @@ public class AdministratorService {
 	 * @param administrator　管理者情報
 	 */
 	public void insert(Administrator administrator) {
+
 		administratorRepository.insert(administrator);
+	}
+	
+	/**
+	 * メールアドレスが登録されているかを確認します.
+	 * 
+	 * @param mailAddress 登録するメールアドレス
+	 * @return 登録情報
+	 */
+	public Administrator findByMailAddress(String mailAddress) {
+		return administratorRepository.findByMailAddress(mailAddress);
 	}
 	
 	/**
