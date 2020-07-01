@@ -57,7 +57,7 @@ public class AdministratorController {
 	 * @return 管理者登録画面
 	 */
 	@RequestMapping("/toInsert")
-	public String toInsert(Model model) {
+	public String toInsert() {
 		return "administrator/insert";
 	}
 
@@ -73,7 +73,7 @@ public class AdministratorController {
 	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
 		// 不正な入力がある場合は登録画面に遷移
 		if (result.hasErrors()) {
-			return toInsert(model);
+			return toInsert();
 		}
 		
 		Administrator administrator = new Administrator();
@@ -86,8 +86,9 @@ public class AdministratorController {
 		// もし登録されている場合はエラーとして登録のやり直し
 		// TODO : result.rejectErrorを用いてvalidation でエラー表示できるようにする
 		if (adminiMail != null) {
-			model.addAttribute("hasMail", "そのメールアドレスは既に登録されています");
-			return toInsert(model);
+			result.rejectValue("mailAddress", null, "そのメールアドレスは既に登録されています");
+//			model.addAttribute("hasMail", "そのメールアドレスは既に登録されています");
+			return toInsert();
 		}
 		
 		administratorService.insert(administrator);
