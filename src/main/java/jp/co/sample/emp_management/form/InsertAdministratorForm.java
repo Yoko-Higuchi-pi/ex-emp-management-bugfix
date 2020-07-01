@@ -23,6 +23,11 @@ public class InsertAdministratorForm {
 	@NotBlank(message = "スペース等は無効です")
 	@Size(min = 8, max = 24, message = "8文字未満のパスワードは無効です")
 	private String password;
+	
+	/** 確認用パスワード */
+	private String passwordCheck;
+	
+
 	public String getName() {
 		return name;
 	}
@@ -41,10 +46,16 @@ public class InsertAdministratorForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPasswordCheck() {
+		return passwordCheck;
+	}
+	public void setPasswordCheck(String passwordCheck) {
+		this.passwordCheck = passwordCheck;
+	}
 	@Override
 	public String toString() {
 		return "InsertAdministratorForm [name=" + name + ", mailAddress=" + mailAddress + ", password=" + password
-				+ "]";
+				+ ", passwordCheck=" + passwordCheck + "]";
 	}
 	
 }
