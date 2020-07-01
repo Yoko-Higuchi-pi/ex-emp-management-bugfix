@@ -21,7 +21,7 @@ public class InsertAdministratorForm {
 	private String mailAddress;
 	/** パスワード */
 	@NotBlank(message = "スペース等は無効です")
-	@Size(min = 8, max = 24, message = "8文字未満のパスワードは無効です")
+	@Size(min = 8, message = "8文字未満のパスワードは無効です")
 	private String password;
 	
 	/** 確認用パスワード */
