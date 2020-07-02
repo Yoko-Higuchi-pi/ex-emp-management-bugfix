@@ -60,6 +60,36 @@ public class EmployeeController {
 		return "employee/list";
 	}
 
+	/////////////////////////////////////////////////////
+	// ユースケース：従業員のあいまい検索をする
+	/////////////////////////////////////////////////////
+	/**
+	 * 従業員のあいまい検索を行います.
+	 * 
+	 * @param name キーワード
+	 * @param model モデル
+	 * @return 従業員一覧画面
+	 */
+	@RequestMapping("/find-by-name")
+	public String findByName(String name, Model model) {
+		List<Employee> employeeList = employeeService.findByName(name);
+		
+		/** 
+		 * 1件でも見つかる → 表示
+		 * 0件 → 「見つかりませんでした」という表示とともに全件表示
+		 */
+		if (employeeList.size() != 0) {
+			model.addAttribute(employeeList);
+		} else {
+			model.addAttribute("nullList", true);
+			// 全件表示
+			return showList(model);
+		}
+		
+		
+		return "employee/list";
+	}
+	
 	
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する
@@ -77,6 +107,8 @@ public class EmployeeController {
 		model.addAttribute("employee", employee);
 		return "employee/detail";
 	}
+	
+
 	
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を更新する

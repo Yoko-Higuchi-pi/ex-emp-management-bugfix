@@ -45,6 +45,16 @@ public class EmployeeService {
 	}
 	
 	/**
+	 * 従業員のあいまい検索を行います.
+	 * 
+	 * @param name 検索したいキーワード
+	 * @return キーワードが含まれる従業員一覧
+	 */
+	public List<Employee> findByName(String name) {
+		return employeeRepository.findByName(name);
+	}
+	
+	/**
 	 * 従業員情報を更新します.
 	 * 
 	 * @param employee　更新した従業員情報

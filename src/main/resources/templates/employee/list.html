@@ -63,6 +63,24 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのtable要素を貼り付けます -->
+				<form method="post" action="./employee/list.html" th:action="@{/employee/find-by-name}">
+					<fieldset>
+						<legend>検索</legend>
+
+							<div class="form-group">
+								<label for="mailAddress">
+									従業員名(キーワード)
+								</label>
+									<div th:if="${nullList}">
+                		<p>1件もありませんでした</p>
+               		</div>
+								<input type="text" name="name" id="name" class="form-control" placeholder="name">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">検索</button>
+							</div>
+					</fieldset>
+				</form>
 
 				<table class="table table-striped">
 					<thead>
